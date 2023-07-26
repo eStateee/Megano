@@ -1,0 +1,31 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Регистрация" %}{% endblock %}
+
+{% block main %}
+<div class="input-container custom-form-container">
+  <h1>{% trans "Регистрация" %}</h1>
+
+  <p>{% blocktrans %}Уже есть аккаунт? Войдите <a href="{{ login_url }}">здесь</a>.{% endblocktrans %}</p>
+
+  <form class="signup login-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    <p><label for="id_email"></label> <input type="email" name="email" placeholder="Почта" autocomplete="email" required
+        id="id_email"></p>
+    <p><label for="id_username"></label> <input type="text" name="username" placeholder="Имя пользователя"
+        autocomplete="username" minlength="4" maxlength="150" required id="id_username"></p>
+    <p><label for="id_password1"></label> <input type="password" name="password1" placeholder="Пароль"
+        autocomplete="new-password" required id="id_password1"></p>
+    <p><label for="id_password2"></label> <input type="password" name="password2" placeholder="Повторите пароль"
+        autocomplete="new-password" required id="id_password2"></p>
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <button class="btn btn_success user-btn" type="submit">Войти</button>
+  </form>
+
+</div>
+
+{% endblock %}

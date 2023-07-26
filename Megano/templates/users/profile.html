@@ -1,0 +1,89 @@
+{% extends "users/basic_account.html" %}
+{% load static %}
+{% block content %}
+    <div class="Section-content">
+     <form class="form Profile-form js-form" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="row-block">
+                                <div class="form-group">
+                                    <label class="form-label" for="avatar">Аватар
+                                    </label>
+                                    <div class="Profile-avatar Profile-avatar_noimg">
+                                        <div class="Profile-img"><img src="#" alt="#.png"/>
+                                        </div>
+                                        <label class="Profile-fileLabel" for="id_image">Выберите аватар
+                                        </label>
+                                       <input class="Profile-file form-input" type="file" name="image" accept="image/*" data-validate="onlyImgAvatar"  id="id_image">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="id_password1">Пароль
+                                    </label>
+                                    {{ pass_form.password1 }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="id_password2">Подтверждение пароля
+                                    </label>
+                                    {{ pass_form.password2 }}
+                                </div>
+
+                            </div>
+                            <div class="row-block">
+                                <div class="form-group">
+                                    <label class="form-label">Имя
+                                    </label>
+                                    {{ user_form.first_name }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Фамилия
+                                    </label>
+                                    {{ user_form.last_name }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Отчество
+                                    </label>
+                                    {{ profile_form.patronymic }}
+                                </div>
+
+                            {{ profile_form.avatar }}
+                            </div>
+                            <div class="row-block">
+                                <div class="form-group ">
+                                    <label class="form-label" for="phone">Телефон
+                                    </label>
+
+                                                                        {% if profile_form.phone.value != ''%}
+                                                                            <input type="tel" placeholder="Телефон *"
+                                           autocomplete="off" data-inputmask-removemaskonsubmit="true" data-validate-field="phone" name="phone" id="id_phone" value="{{ profile_form.phone.value }}">
+                                                                        {% else %}
+                                                                            <input type="tel" placeholder="Телефон *"
+                                           autocomplete="off" data-inputmask-removemaskonsubmit="true" data-validate-field="phone" name="phone" id="id_phone">
+                                                                        {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="phone">Имя пользователя
+                                    </label>
+                                    {{ user_form.username }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="mail">Почта
+                                    </label>
+                                    {{ user_form.email }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="Profile-btn">
+                                        <button class="btn btn_success" type="submit">Сохранить
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+    </div>
+{% endblock %}

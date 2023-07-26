@@ -1,0 +1,169 @@
+{% load static %}
+{% load humanize %}
+<header class="Header">
+    <div class="ControlPanel">
+      <div class="wrap">
+        <div class="row ControlPanel-row">
+          <div class="row-block">
+            <div class="row ControlPanel-rowSplit">
+              <div class="row-block"><a class="ControlPanel-title" href="#">Бесплатная доставка</a>
+              </div>
+              <div class="row-block hide_700"><span class="ControlPanel-title">Мы в соцсетях</span>
+                <ul class="menu menu_img menu_smallImg ControlPanel-menu">
+                  <li class="menu-item"><a class="menu-link" href="#"><img
+                          src="{% static 'app_goods/assets/img/icons/socialHeader/fb.svg' %}"
+                          alt="fb.svg"/></a>
+                  </li>
+                  <li class="menu-item"><a class="menu-link" href="#"><img
+                          src="{% static 'app_goods/assets/img/icons/socialHeader/tw.svg' %}"
+                          alt="tw.svg"/></a>
+                  </li>
+                  <li class="menu-item"><a class="menu-link" href="#"><img
+                          src="{% static 'app_goods/assets/img/icons/socialHeader/in.svg' %}"
+                          alt="in.svg"/></a>
+                  </li>
+                  <li class="menu-item"><a class="menu-link" href="#"><img
+                          src="{% static 'app_goods/assets/img/icons/socialHeader/pt.svg' %}"
+                          alt="pt.svg"/></a>
+                  </li>
+                  <li class="menu-item"><a class="menu-link"
+                                           href="#"><img
+                          src="{% static 'app_goods/assets/img/icons/socialHeader/mail.svg' %}"
+                          alt="mail.svg"/></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <nav class="row-block">
+            <div class="row ControlPanel-rowSplit">
+              {% if request.user.is_superuser %}
+                <div class="row-block"><a class="ControlPanel-title" href="{% url 'account_logout' %}">Unavailable
+                  for Admin</a>
+                </div>
+              {% elif request.user.is_authenticated %}
+                {% if request.user.first_name %}
+                  <div class="row-block"><a class="ControlPanel-title"
+                                            href="{% url 'account' request.user.userprofile.slug %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                  </div>
+                  <a class="ControlPanel-title" style="padding-left: 7px" href="{% url 'account_logout' %}">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                              d="M5.12056 9.09278L6.13889 10.1111L9.75 6.5L6.13889 2.88889L5.12056 3.90722L6.98389 5.77778H0V7.22222H6.98389L5.12056 9.09278ZM11.5556 0H1.44444C0.642778 0 0 0.65 0 1.44444V4.33333H1.44444V1.44444H11.5556V11.5556H1.44444V8.66667H0V11.5556C0 12.35 0.642778 13 1.44444 13H11.5556C12.35 13 13 12.35 13 11.5556V1.44444C13 0.65 12.35 0 11.5556 0Z"
+                              fill="#777"></path>
+                    </svg>
+                  </a>
+
+                {% elif request.user.username %}
+                  <div class="row-block"><a class="ControlPanel-title"
+                                            href="{% url 'account' request.user %}">{{ request.user.username }}</a>
+                  </div>
+                  <a class="ControlPanel-title" style="padding-left: 7px" href="{% url 'account_logout' %}">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                              d="M5.12056 9.09278L6.13889 10.1111L9.75 6.5L6.13889 2.88889L5.12056 3.90722L6.98389 5.77778H0V7.22222H6.98389L5.12056 9.09278ZM11.5556 0H1.44444C0.642778 0 0 0.65 0 1.44444V4.33333H1.44444V1.44444H11.5556V11.5556H1.44444V8.66667H0V11.5556C0 12.35 0.642778 13 1.44444 13H11.5556C12.35 13 13 12.35 13 11.5556V1.44444C13 0.65 12.35 0 11.5556 0Z"
+                              fill="#777"></path>
+                    </svg>
+                  </a>
+
+                {% endif %}
+
+
+              {% else %}
+                <div class="row-block"><a class="ControlPanel-title" href="{% url 'account_login' %}">Войти</a>
+                </div>
+              {% endif %}
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="row Header-rowMain">
+        <div class="row-block Header-logo"><a class="logo" href="{% url 'main' %}"><img class="logo-image"
+                                                                                        src="{% static 'app_goods/assets/img/logo.png' %}"
+                                                                                        alt="logo.png"/></a>
+        </div>
+        <nav class="row-block row-block_right Header-menu">
+          <div class="menuModal" id="navigate">
+            <ul class="menu menu_main">
+              <li class="menu-item"><a class="menu-link" href="{% url 'main' %}">Главная</a>
+              </li>
+              <li class="menu-item"><span class="menu-label menu-label_success">Горячие</span><a
+                      class="menu-link" href="{% url 'special' %}">Предложения</a>
+              </li>
+              {% if request.user.is_authenticated %}
+                <li class="menu-item"><a class="menu-link" href="{% url 'account' request.user %}">Профиль</a>
+                </li>
+                <li class="menu-item"><a class="menu-link" href="{% url 'orders_history' %}">Заказы</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+        <div class="row-block">
+          <div class="CartBlock">
+            <a class="CartBlock-block" href="{% url 'cart' %}">
+              <img class="CartBlock-img" src="{% static 'app_goods/assets/img/icons/cart.svg' %}"
+                   alt="cart.svg"/>
+              <span class="CartBlock-amount">
+                {{ quantity }}
+              </span>
+            </a>
+            <div class="CartBlock-block">
+                        <span class="CartBlock-price">
+                        {{ total_price|intcomma }}&nbsp;Р.
+                        </span>
+            </div>
+          </div>
+        </div>
+        <div class="row-block Header-trigger"><a class="menuTrigger" href="#navigate">
+          <div class="menuTrigger-content">Показать навигацию
+          </div>
+          <span></span><span></span><span></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="Header-searchWrap">
+      <div class="wrap">
+        <div class="Header-categories">
+          <div class="CategoriesButton">
+            <div class="CategoriesButton-title">
+              <div class="CategoriesButton-icon">
+                <img src="{% static 'app_goods/assets/img/icons/allDep.svg' %}" alt="allDep.svg"/>
+              </div>
+              <span class="CategoriesButton-text">Каталог</span>
+              <div class="CategoriesButton-arrow">
+              </div>
+            </div>
+            <div class="CategoriesButton-content">
+              {% for category in menu_categories %}
+                <div class="CategoriesButton-link">
+                  <a href="{% url 'products' category.slug %}"
+                     {% if category.goods_in_subcats == 0 %}class="disabled_link" {% endif %}>
+
+                    <span class="CategoriesButton-text">{{ category.title }}</span>
+                  </a>
+
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="Header-searchLink">
+          <img src="{% static 'app_goods/assets/img/icons/search.svg' %}" alt="search.svg"/>
+        </div>
+        <div class="Header-search">
+          <div class="search">
+            <form class="form form_search" action="{% url 'products' 'search' %}" method="get">
+              <input class="search-input" id="title" name="title" type="text"
+                     placeholder="Что вы ищите ..."/>
+              <button class="search-button" type="submit"><img
+                      src="{% static 'app_goods/assets/img/icons/search.svg' %}" alt="search.svg"/>Поиск
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>

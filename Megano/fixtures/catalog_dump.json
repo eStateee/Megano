@@ -1,0 +1,539 @@
+[
+  {
+    "model": "app_orders.payment",
+    "pk": 1,
+    "fields": {
+      "type": "online",
+      "slug": "online"
+    }
+  },
+  {
+    "model": "app_orders.payment",
+    "pk": 2,
+    "fields": {
+      "type": "someone",
+      "slug": "someone"
+    }
+  },
+  {
+    "model": "app_goods.categories",
+    "pk": 1,
+    "fields": {
+      "title": "Телефоны",
+      "is_active": true,
+      "slug": "telefony"
+    }
+  },
+  {
+    "model": "app_goods.categories",
+    "pk": 2,
+    "fields": {
+      "title": "Телевизоры",
+      "is_active": true,
+      "slug": "televizory"
+    }
+  },
+  {
+    "model": "app_goods.categories",
+    "pk": 3,
+    "fields": {
+      "title": "Ноутбуки",
+      "is_active": true,
+      "slug": "noutbuki"
+    }
+  },
+  {
+    "model": "app_goods.categories",
+    "pk": 4,
+    "fields": {
+      "title": "Бытовая техника",
+      "is_active": true,
+      "slug": "bytovaya-tehnika"
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 1,
+    "fields": {
+      "image": "photologue/photos/macbookpro15.jpg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "macbookpro15pro",
+      "slug": "macbookpro15pro",
+      "caption": "",
+      "date_added": "2023-07-26T16:07:22Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 2,
+    "fields": {
+      "image": "photologue/photos/macbookpro15-1.jpg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "macbookpro15-1",
+      "slug": "macbookpro15-1",
+      "caption": "",
+      "date_added": "2023-07-26T16:08:19Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 3,
+    "fields": {
+      "image": "photologue/photos/macbookpro15-2.jpg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "macbookpro15-2",
+      "slug": "macbookpro15-2",
+      "caption": "",
+      "date_added": "2023-07-26T16:08:32Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 4,
+    "fields": {
+      "image": "photologue/photos/macbookair-12.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "macbookair13",
+      "slug": "macbookair13",
+      "caption": "",
+      "date_added": "2023-07-26T16:11:33Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 5,
+    "fields": {
+      "image": "photologue/photos/macbookair13-1.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "macbookair13-1",
+      "slug": "macbookair13-1",
+      "caption": "",
+      "date_added": "2023-07-26T16:11:48Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 6,
+    "fields": {
+      "image": "photologue/photos/macbookair-13-2.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "macbookair13-2",
+      "slug": "macbookair13-2",
+      "caption": "",
+      "date_added": "2023-07-26T16:12:00Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 7,
+    "fields": {
+      "image": "photologue/photos/iphone14.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "iphone14",
+      "slug": "iphone14",
+      "caption": "",
+      "date_added": "2023-07-26T16:46:07Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 8,
+    "fields": {
+      "image": "photologue/photos/iphone8.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "iphone8",
+      "slug": "iphone8",
+      "caption": "",
+      "date_added": "2023-07-26T16:46:51Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 9,
+    "fields": {
+      "image": "photologue/photos/lgtv1.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "lgtv1",
+      "slug": "lgtv1",
+      "caption": "",
+      "date_added": "2023-07-26T16:49:06Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 10,
+    "fields": {
+      "image": "photologue/photos/lgtv2.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "lgtv2",
+      "slug": "lgtv2",
+      "caption": "",
+      "date_added": "2023-07-26T16:49:53Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 11,
+    "fields": {
+      "image": "photologue/photos/bosh.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "bosh",
+      "slug": "bosh",
+      "caption": "",
+      "date_added": "2023-07-26T16:55:24Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.photo",
+    "pk": 12,
+    "fields": {
+      "image": "photologue/photos/lg-bit.jpeg",
+      "date_taken": null,
+      "view_count": 0,
+      "crop_from": "center",
+      "effect": null,
+      "title": "lgbit",
+      "slug": "lgbit",
+      "caption": "",
+      "date_added": "2023-07-26T16:56:18Z",
+      "is_public": true,
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "app_goods.tags",
+    "pk": 1,
+    "fields": {
+      "name": "Apple"
+    }
+  },
+  {
+    "model": "app_goods.tags",
+    "pk": 2,
+    "fields": {
+      "name": "Samsung"
+    }
+  },
+  {
+    "model": "app_goods.tags",
+    "pk": 3,
+    "fields": {
+      "name": "Lenovo"
+    }
+  },
+  {
+    "model": "app_goods.tags",
+    "pk": 4,
+    "fields": {
+      "name": "LG"
+    }
+  },
+  {
+    "model": "app_goods.tags",
+    "pk": 5,
+    "fields": {
+      "name": "Bosh"
+    }
+  },
+  {
+    "model": "photologue.gallery",
+    "pk": 1,
+    "fields": {
+      "date_added": "2023-07-26T16:08:56Z",
+      "title": "macbookpro15-gallery",
+      "slug": "macbookpro15-gallery",
+      "description": "",
+      "is_public": true,
+      "photos": [
+        3,
+        2,
+        1
+      ],
+      "sites": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "photologue.gallery",
+    "pk": 2,
+    "fields": {
+      "date_added": "2023-07-26T16:11:47Z",
+      "title": "macbookair-13-gallery",
+      "slug": "macbookair-13-gallery",
+      "description": "",
+      "is_public": true,
+      "photos": [
+        4,
+        5,
+        6
+      ],
+      "sites": [
+        1
+      ]
+    }
+  },
+   {
+    "model": "app_goods.goods",
+    "pk": 1,
+    "fields": {
+      "part_num": 1,
+      "title": "Apple MacBook Pro 15",
+      "short_description": "Обновленная модель 15 - дюймового MacBook Pro с дисплеем Retina.",
+      "description": "Обновленная модель 15 - дюймового MacBook Pro с дисплеем Retina. Ноутбук получил процессор от Intel четвертого поколения, порты Thunderbolt 2 вместо Thunderbolt и улучшенный Wi-Fi модуль. В зависимости от модели, MacBook поставляется с различными видеоадаптерами (включая GeForce GT 750M). Физические размеры и дизайн аппарата остались неизменными.",
+      "price": "199000.00",
+      "amount": 1000,
+      "free_delivery": false,
+      "sort_index": 1,
+      "limited": true,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 3,
+      "photo": 1,
+      "gallery": 1,
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "app_goods.goods",
+    "pk": 2,
+    "fields": {
+      "part_num": 2,
+      "title": "Apple Macbook Air 13",
+      "short_description": "ультрабук",
+      "description": "Apple M1 GPU (7 ядер), металл",
+      "price": "139000.00",
+      "amount": 1000,
+      "free_delivery": true,
+      "sort_index": 1,
+      "limited": false,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 3,
+      "photo": 4,
+      "gallery": 2,
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "app_goods.goods",
+    "pk": 3,
+    "fields": {
+      "part_num": 3,
+      "title": "Apple iPhone 14",
+      "short_description": "Телефон 2023 года выпуска",
+      "description": "test",
+      "price": "99000.00",
+      "amount": 1000,
+      "free_delivery": false,
+      "sort_index": 1,
+      "limited": false,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 1,
+      "photo": 7,
+      "gallery": null,
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "app_goods.goods",
+    "pk": 4,
+    "fields": {
+      "part_num": 4,
+      "title": "Apple iPhone 8",
+      "short_description": "test",
+      "description": "test",
+      "price": "29000.00",
+      "amount": 1000,
+      "free_delivery": true,
+      "sort_index": 1,
+      "limited": false,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 1,
+      "photo": 8,
+      "gallery": null,
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "app_goods.goods",
+    "pk": 5,
+    "fields": {
+      "part_num": 6,
+      "title": "LG B3 OLED65B3RLA",
+      "short_description": "test",
+      "description": "test",
+      "price": "499000.00",
+      "amount": 1000,
+      "free_delivery": false,
+      "sort_index": 1,
+      "limited": true,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 2,
+      "photo": 9,
+      "gallery": null,
+      "tags": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "app_goods.goods",
+    "pk": 6,
+    "fields": {
+      "part_num": 7,
+      "title": "LG 55NANO766QA",
+      "short_description": "test",
+      "description": "test",
+      "price": "56000.00",
+      "amount": 1000,
+      "free_delivery": true,
+      "sort_index": 1,
+      "limited": false,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 2,
+      "photo": 10,
+      "gallery": null,
+      "tags": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "app_goods.goods",
+    "pk": 7,
+    "fields": {
+      "part_num": 9,
+      "title": "Bosch Serie 4 WAN282EEPL",
+      "short_description": "test",
+      "description": "test",
+      "price": "89999.00",
+      "amount": 1000,
+      "free_delivery": true,
+      "sort_index": 1,
+      "limited": false,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 4,
+      "photo": 11,
+      "gallery": null,
+      "tags": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "app_goods.goods",
+    "pk": 8,
+    "fields": {
+      "part_num": 10,
+      "title": "LG TW4V9BC9E",
+      "short_description": "test",
+      "description": "test",
+      "price": "120000.00",
+      "amount": 1000,
+      "free_delivery": false,
+      "sort_index": 1,
+      "limited": true,
+      "is_published": true,
+      "date_published": "2023-07-26",
+      "category": 4,
+      "photo": 12,
+      "gallery": null,
+      "tags": [
+        4
+      ]
+    }
+  }
+]

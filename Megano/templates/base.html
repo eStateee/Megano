@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<!--[if IE 7]>
+<html class="ie7" lang="ru">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie8" lang="ru">
+<![endif]-->
+<!--[if IE 9]>
+<html class="ie9" lang="ru">
+<![endif]-->
+<!--[if IE 10]>
+<html class="ie10" lang="ru">
+<![endif]-->
+<!--[if IE 11]>
+<html class="ie11" lang="ru">
+<![endif]-->
+<!--[if gt IE 11]><!-->
+<html lang="ru"> <!--<![endif]-->
+<head>
+  <title>Megano</title>
+  <meta name="description" content="Описание страницы">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <link href="{% static 'app_goods/favicon.ico' %}" rel="shortcut icon">
+  <link rel="preload" href="{% static 'app_goods/assets/fonts/Roboto/Roboto-Regular.woff' %}" as="font">
+  <link rel="preload" href="{% static 'app_goods/assets/fonts/Roboto/Roboto-Italic.woff' %}" as="font">
+  <link rel="preload" href="{% static 'app_goods/assets/fonts/Roboto/Roboto-Bold.woff' %}" as="font">
+  <link rel="preload" href="{% static 'app_goods/assets/fonts/Roboto/Roboto-Bold_Italic.woff' %}" as="font">
+  <link rel="preload" href="{% static 'app_goods/assets/fonts/Roboto/Roboto-Light.woff' %}" as="font">
+  <link rel="preload" href="{% static 'app_goods/assets/fonts/Roboto/Roboto-Light_Italic.woff' %}" as="font">
+  <link rel="stylesheet" href="{% static 'app_goods/assets/css/fonts.css' %}">
+  <link rel="stylesheet" href="{% static 'app_goods/assets/css/basic.css' %}">
+  <link rel="stylesheet" href="{% static 'app_goods/assets/css/extra.css' %}">
+  <script src="{% static 'app_goods/assets/plg/CountDown/countdown.js' %} "></script>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body class="Site">
+
+{% include 'base/header.html' %}
+{% block main %}
+{% endblock main %}
+
+{% include 'base/footer.html' %}
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://rawcdn.githack.com/horprogs/Just-validate/7661936417e8aaad0e059291890c68a6bf473f6b/dist/js/just-validate.min.js"></script>
+<script src="https://rawcdn.githack.com/RobinHerbots/Inputmask/a95afe64e7467eb14eb8aa8ccbfb6340a46fb8e3/dist/inputmask.min.js"></script>
+<script src="{% static 'app_goods/assets/plg/jQuery/jquery-3.5.0.slim.min.js' %}"></script>
+<script src="{% static 'app_goods/assets/plg/form/jquery.form.js' %}"></script>
+<script src="{% static 'app_goods/assets/plg/form/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'app_goods/assets/plg/range/ion.rangeSlider.min.js' %}"></script>
+<script src="{% static 'app_goods/assets/plg/Slider/slick.min.js' %}"></script>
+<script src="{% static 'app_goods/assets/js/scripts.js' %}"></script>
+<script src="{% static 'app_goods/assets/js/toast.js' %}"></script>
+<script src="{% static 'app_goods/assets/js/jquery-3.6.1.min.js' %}"></script>
+<script src="{% static 'app_goods/assets/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'app_goods/assets/js/infinite.min.js' %}"></script>
+<script src="{% static 'app_goods/assets/js/form-mask.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        onBeforePageLoad: function () {
+            $('.loading').show();
+        },
+        onAfterPageLoad: function ($items) {
+            $('.loading').hide();
+        }
+    });
+</script>
+
+
+</body>
+</html>

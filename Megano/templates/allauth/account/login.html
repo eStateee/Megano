@@ -1,0 +1,53 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Вход" %}{% endblock %}
+
+{% block main %}
+<div class="input-container">
+  <h1>{% trans "Вход" %}</h1>
+
+  {% get_providers as socialaccount_providers %}
+
+  {% if socialaccount_providers %}
+  <p>{% blocktrans with site.name as site_name %}Please sign in with one
+    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+  <div class="socialaccount_ballot">
+
+    <ul class="socialaccount_providers">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+
+    <div class="login-or">{% trans 'or' %}</div>
+
+  </div>
+
+  {% include "socialaccount/snippets/login_extra.html" %}
+
+  {% else %}
+  <p>{% blocktrans %}Если вы не зарегистрированы
+    <a href="{{ signup_url }}">зарегистрируйтесь</a> сначала.{% endblocktrans %}
+  </p>
+  {% endif %}
+
+  <form class="login-form" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    <p><label for="id_login"></label> <input type="text" name="login" placeholder="Имя пользователя:"
+        autocomplete="username" maxlength="150" required id="id_login"></p>
+    <p><label for="id_password"></label> <input type="password" name="password" placeholder="Пароль"
+        autocomplete="current-password" required id="id_password"></p>
+
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <a class="login-btn secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Забыли пароль?" %}</a>
+    <button class="btn btn_success user-btn" type="submit">Войти</button>
+  </form>
+</div>
+
+
+{% endblock %}
