@@ -4,9 +4,10 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView, FormView, DetailView
 from app_cart.cart import Cart
-from .forms import OrderParamForm, OrderDeliveryForm, OrderPaymentForm
-from .models import Order
-from .utils import OrderDetails, calculate_delivery_price
+from services.delivery_service import calculate_delivery_price
+from app_orders.forms import OrderParamForm, OrderDeliveryForm, OrderPaymentForm
+from app_orders.models import Order
+from app_orders.utils import OrderDetails
 from django.db import transaction
 from services.user_service import create_user_in_order_view, update_user_in_order_view
 from services.order_service import check_availability, create_order, create_order_detail, get_order_user_by_order_id, \
@@ -30,8 +31,6 @@ class CheckOutView(UserPassesTestMixin, FormView):
         form = OrderParamForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get("email")
-            # print(email)
-            # email = list(email)[0]
             user = User.objects.filter(email=email)
             phone = form.cleaned_data.get("phone")
             patronymic = form.cleaned_data.get("patronymic")
@@ -72,12 +71,13 @@ class CheckOutDeliveryView(UserPassesTestMixin, FormView):
         cart = Cart(self.request)
         form = OrderDeliveryForm(request.POST)
         if form.is_valid():
+            delivery = form.cleaned_data.get("delivery")
             current_order = OrderDetails(self.request)
             current_order.set_attribute("delivery_type", form.cleaned_data.get("delivery"))
             current_order.set_attribute("city", form.cleaned_data.get("city"))
             current_order.set_attribute("address", form.cleaned_data.get("address"))
             current_order.set_attribute("delivery_price",
-                                        calculate_delivery_price(cart.get_total_price()))
+                                        calculate_delivery_price(delivery, cart.get_total_price()))
             current_order.step_completed("step_2")
 
             return redirect(reverse_lazy("checkout_payment"))

@@ -1,5 +1,5 @@
 
-from app_goods.filters import set_ordering, get_basic_filters, perform_filters
+from app_goods.filters import set_ordering, get_filters, get_filtered_products
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from app_goods.forms import ReviewForm
@@ -47,14 +47,14 @@ class Products(ListView):
     def get(self, request, *args, **kwargs):
         if self.kwargs["category_slug"] == "search":
             queryset = get_published_products()
-            queryset = perform_filters(self, queryset)
+            queryset = get_filtered_products(self, queryset)
             self.object_list = set_ordering(self, queryset)
             context = self.get_context_data()
             return render(request, self.template_name, context)
         else:
             queryset = get_all_products(category_slug=self.kwargs["category_slug"])
-            filter_clauses = get_basic_filters(self)
-            queryset = perform_filters(self, queryset, filter_clauses)
+            filter_clauses = get_filters(self)
+            queryset = get_filtered_products(self, queryset, filter_clauses)
             self.object_list = set_ordering(self, queryset)
             context = self.get_context_data()
             return render(request, self.template_name, context)

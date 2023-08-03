@@ -7,7 +7,7 @@ urlpatterns = [
     path("", include('app_users.urls')),
     path("", include("django.contrib.auth.urls")),
     path("", include('app_goods.urls')),
-    path("", include('app_cart.urls')),
+    path("cart/", include('app_cart.urls')),
     path("", include('app_orders.urls')),
     path('accounts/', include('allauth.urls')),
     path('photologue/', include('photologue.urls', namespace='photologue')),

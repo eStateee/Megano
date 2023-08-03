@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Prefetch
 from django.http import HttpResponseRedirect
 
 from app_cart.models import UserCart
@@ -8,11 +8,11 @@ from app_goods.models import Goods
 
 
 def get_cart(user):
-    _cart = UserCart.objects.filter(user=user).select_related("good") \
-        .prefetch_related("good__category").all()
-    if _cart.count() == 0:
-        _cart = {}
-    return _cart
+    user_cart = UserCart.objects.filter(user=user).select_related("good").prefetch_related(
+        Prefetch("good", queryset=Goods.objects.select_related("category"))
+    ).all()
+
+    return user_cart if user_cart.exists() else {}
 
 
 def get_goods(goods_ids):

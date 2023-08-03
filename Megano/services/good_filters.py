@@ -1,5 +1,5 @@
 from django.db.models import Count, Prefetch
-
+from django.db.models import Q
 from app_goods.models import Goods, Tags, Reviews
 
 
@@ -19,16 +19,18 @@ def get_limited_goods():
 
 def get_all_products(category_slug):
     return Goods.objects.filter(category__slug=category_slug, is_published=True) \
-            .select_related("category").all()
+        .select_related("category").all()
 
 
 def get_tags(category_slug):
-    return Tags.objects.values("pk", "name").annotate(cnt=Count("id")) \
-                .filter(cnt__gte=1, goods_with_tag__category__slug=category_slug).all()
+    return Tags.objects.annotate(
+        cnt=Count("goods_with_tag", filter=Q(goods_with_tag__category__slug=category_slug))
+    ).filter(cnt__gte=1).values("pk", "name")
 
 
 def get_published_products():
     return Goods.objects.filter(is_published=True)
+
 
 def get_all_limited_goods():
     return Goods.objects.filter(limited=True, is_published=True) \
@@ -38,6 +40,7 @@ def get_all_limited_goods():
 def get_goods_with_reviews(product_id):
     return Goods.objects.filter(pk=product_id) \
         .select_related("category") \
-        .prefetch_related("tags") \
-        .prefetch_related(Prefetch("reviews", queryset=Reviews.objects.filter(good=product_id))) \
-        .prefetch_related("reviews__user").prefetch_related("reviews__user__userprofile")
+        .prefetch_related(
+        "tags",
+        Prefetch("reviews", queryset=Reviews.objects.select_related("user__userprofile"))
+    )

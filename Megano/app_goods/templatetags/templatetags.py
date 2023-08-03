@@ -1,5 +1,6 @@
 from django import template
 from django.template import Context
+
 register = template.Library()
 
 
@@ -10,22 +11,15 @@ def define(val=None):
 
 @register.simple_tag
 def make_order_by_url(url, default_ordering, current_ordering, current_method):
-    cut_place_page = url.find("page")
-    if cut_place_page != -1:
-        url = url[:cut_place_page - 1]
-    cut_place_sort = url.find("sort")
-    if cut_place_sort != -1:
-        url = url[:cut_place_sort - 1]
-    composite = "?" in url
-    url = url + "&sort=" if composite else url + "?sort="
+    url = url.split('?')[0].split('sort')[0]
+    separator = '&' if '?' in url else '?'
+
     if default_ordering != current_ordering:
-        url += f"{default_ordering}_asc"
+        new_ordering = default_ordering + '_asc'
     else:
-        if current_method == "asc":
-            url += f"{default_ordering}_desc"
-        else:
-            url += f"{default_ordering}_asc"
-    return url
+        new_ordering = default_ordering + ('_desc' if current_method == 'asc' else '_asc')
+
+    return f"{url}{separator}sort={new_ordering}"
 
 
 @register.simple_tag
@@ -41,17 +35,21 @@ def make_order_by_class(default_ordering, current_ordering, current_method):
 
 @register.simple_tag
 def make_pagination_url(url, page):
-    cut_place = url.find("page")
-    if cut_place != -1:
-        url = url[:cut_place - 1]
-    composite = "?" in url
-    return url + f"&page={page}" if composite else url + f"?page={page}"
+    base_url, _, query_string = url.partition('?')
+    query_params = query_string.split('&') if query_string else []
+
+    filtered_params = [param for param in query_params if not param.startswith('page=')]
+    filtered_query_string = '&'.join(filtered_params)
+
+    separator = '&' if filtered_query_string else ''
+    pagination_url = f"{base_url}?{filtered_query_string}{separator}page={page}"
+
+    return pagination_url
 
 
 @register.simple_tag
 def receive_get_param(request, value):
-    return request.GET.get("param_"+str(value))
-
+    return request.GET.get("param_" + str(value))
 
 
 @register.simple_tag(name="get_product_quantity_error", takes_context=True)

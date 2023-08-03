@@ -1,7 +1,4 @@
 from decimal import Decimal
-
-from django.db.models import Sum
-
 from .models import UserCart
 from django.contrib.auth import user_logged_in
 from django.dispatch import receiver
@@ -11,38 +8,41 @@ from services.cart_service import get_cart, get_goods, get_goods_sum, create_use
 
 
 class Cart:
+
     def __init__(self, request, migrate=False):
-        if not request.user.is_authenticated or migrate:
-            self.is_authenticated = False
-            if migrate:
-                self.is_authenticated = True
-                self.user = request.user
-            self.session = request.session
-            cart = self.session.get("cart")
-            if not cart:
-                cart = self.session["cart"] = {}
-        else:
-            cart = get_cart(user=request.user)
+        self.is_authenticated = request.user.is_authenticated and not migrate
+
+        if self.is_authenticated:
             self.user = request.user
-            self.is_authenticated = True
-        self.cart = cart
+            self.cart = get_cart(user=self.user)
+        else:
+            self.user = None
+            self.session = request.session
+            self.cart = self.session.get("cart", {})
+
+            if not self.is_authenticated:
+                self.session["cart"] = self.cart
 
     def __iter__(self):
         if not self.is_authenticated:
             goods_ids = self.cart.keys()
-            temp_cart = deepcopy(self.cart)
             goods = get_goods(goods_ids)
-            for good in goods:
-                temp_cart[str(good.pk)]["good"] = good
+            temp_cart = deepcopy(self.cart)
 
-            for item in temp_cart.values():
-                item["price"] = float(item["price"])
-                item["total_price"] = item["price"] * item["quantity"]
-                yield item
+            for good in goods:
+                cart_item = temp_cart[str(good.pk)]
+                cart_item["good"] = good
+                cart_item["price"] = float(cart_item["price"])
+                cart_item["total_price"] = cart_item["price"] * cart_item["quantity"]
+                yield cart_item
         else:
-            for good in self.cart:
-                item = {"good": good.good, "price": float(good.good.price), "quantity": good.amount,
-                        "total_price": (Decimal(good.good.price) * good.amount)}
+            for cart_item in self.cart:
+                item = {
+                    "good": cart_item.good,
+                    "price": float(cart_item.good.price),
+                    "quantity": cart_item.amount,
+                    "total_price": Decimal(cart_item.good.price) * cart_item.amount
+                }
                 yield item
 
     def __len__(self):
@@ -52,15 +52,15 @@ class Cart:
         return result if result else 0
 
     def migrate(self):
-        goods_ids = self.cart.keys()
-        goods = get_goods(goods_ids)
+        good_ids = self.cart.keys()
+        goods = get_goods(good_ids)
         for good in goods:
             self.cart[str(good.pk)]["good"] = good
         for item in self.cart.values():
-            good_in_db_cart = get_first_user_cart_obj(user=self.user, good=item["good"])
-            if good_in_db_cart:
-                good_in_db_cart.amount += item["quantity"]
-                good_in_db_cart.save()
+            user_cart_good = get_first_user_cart_obj(user=self.user, good=item["good"])
+            if user_cart_good:
+                user_cart_good.amount += item["quantity"]
+                user_cart_good.save()
             else:
                 _user_cart = create_user_cart(user=self.user, good=item["good"], amount=item["quantity"])
         self.cart.clear()
@@ -78,14 +78,14 @@ class Cart:
                 self.cart[good_id]["quantity"] += quantity
             self.save()
         else:
-            good_in_db_cart = get_first_user_cart_obj(user=self.user, good=product)
-            if not good_in_db_cart:
-                good_in_db_cart = create_user_cart(user=self.user, good=product, amount=0)
+            user_cart_good = get_first_user_cart_obj(user=self.user, good=product)
+            if not user_cart_good:
+                user_cart_good = create_user_cart(user=self.user, good=product, amount=0)
             if update_quantity:
-                good_in_db_cart.amount = quantity
+                user_cart_good.amount = quantity
             else:
-                good_in_db_cart.amount += quantity
-            good_in_db_cart.save()
+                user_cart_good.amount += quantity
+            user_cart_good.save()
 
     def sub(self, product, quantity=1):
         if not self.is_authenticated:
@@ -97,13 +97,13 @@ class Cart:
                     self.cart[good_id]["quantity"] -= quantity
                     self.save()
         else:
-            good_in_db_cart = get_first_user_cart_obj(user=self.user, good=product)
-            if good_in_db_cart:
-                if good_in_db_cart.amount - quantity <= 0:
+            user_cart_good = get_first_user_cart_obj(user=self.user, good=product)
+            if user_cart_good:
+                if user_cart_good.amount - quantity <= 0:
                     self.remove(product)
                 else:
-                    good_in_db_cart.amount -= quantity
-                    good_in_db_cart.save()
+                    user_cart_good.amount -= quantity
+                    user_cart_good.save()
 
     def save(self):
         self.session.modified = True

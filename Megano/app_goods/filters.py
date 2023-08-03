@@ -8,9 +8,9 @@ def set_ordering(instance, queryset):
         current_ordering, ordering_method = sorting.split("_")
         match sorting:
             case "popularity_desc":
-                result = result.annotate(num_sales=Count("orders_with_product")).order_by("-num_sales")
+                result = result.annotate(num_sales=Count("orders_with_product")).order_by("amount")
             case "popularity_asc":
-                result = result.annotate(num_sales=Count("orders_with_product")).order_by("num_sales")
+                result = result.annotate(num_sales=Count("orders_with_product")).order_by("-amount")
             case "price_desc":
                 result = result.order_by("-price")
             case "price_asc":
@@ -18,7 +18,6 @@ def set_ordering(instance, queryset):
             case "reviews_desc":
                 result = result.annotate(num_reviews=Count("reviews")).order_by("-reviews")
             case "reviews_asc":
-                result = result.annotate(num_reviews=Count("reviews")).order_by("reviews")
                 result = result.annotate(num_reviews=Count("reviews")).order_by("reviews")
             case "update_desc":
                 result = result.order_by("-date_published")
@@ -29,7 +28,7 @@ def set_ordering(instance, queryset):
     return result
 
 
-def get_basic_filters(instance):
+def get_filters(instance):
     filter_clauses = []
     if "price" in instance.request.GET:
         price_gte, price_lte = instance.request.GET.get("price").split(";")
@@ -47,9 +46,9 @@ def get_basic_filters(instance):
     return filter_clauses
 
 
-def perform_filters(instance, queryset, filter_clauses=None):
+def get_filtered_products(instance, queryset, filter_clauses=None):
     if not filter_clauses:
-        filter_clauses = get_basic_filters(instance)
+        filter_clauses = get_filters(instance)
     for i in filter_clauses:
         queryset = queryset.filter(i)
     return queryset
