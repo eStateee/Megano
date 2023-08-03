@@ -10,19 +10,20 @@ from services.cart_service import get_cart, get_goods, get_goods_sum, create_use
 class Cart:
 
     def __init__(self, request, migrate=False):
-        self.is_authenticated = request.user.is_authenticated and not migrate
-
-        if self.is_authenticated:
-            self.user = request.user
-            self.cart = get_cart(user=self.user)
-        else:
-            self.user = None
+        if not request.user.is_authenticated or migrate:
+            self.is_authenticated = False
+            if migrate:
+                self.is_authenticated = True
+                self.user = request.user
             self.session = request.session
-            self.cart = self.session.get("cart", {})
-
-            if not self.is_authenticated:
-                self.session["cart"] = self.cart
-
+            cart = self.session.get("cart")
+            if not cart:
+                cart = self.session["cart"] = {}
+        else:
+            cart = get_cart(user=request.user)
+            self.user = request.user
+            self.is_authenticated = True
+        self.cart = cart
     def __iter__(self):
         if not self.is_authenticated:
             goods_ids = self.cart.keys()
