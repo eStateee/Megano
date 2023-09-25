@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-t1_)*-v1e50+p(s=9ass#31u$l*8v#k&+&!h82a(cz4d4e7s+@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 # Application definition
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app_users.apps.AppUsersConfig',
     'app_cart.apps.AppCartConfig',
     'django.contrib.humanize',
+    'django.contrib.postgres',
 
     'allauth',
     'allauth.account',
@@ -98,13 +99,22 @@ WSGI_APPLICATION = 'Megano.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',   # Используется PostgreSQL
+        'NAME': 'megano', # Имя базы данных
+        'USER': 'admin', # Имя пользователя
+        'PASSWORD': 'admin', # Пароль пользователя
+        'HOST': 'db', # Наименование контейнера для базы данных в Docker Compose
+        'PORT': '5432',  # Порт базы данных
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
