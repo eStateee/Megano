@@ -16,30 +16,35 @@
     ```
     git clone <this repo>
     ```
+    
 
 2. Активировать venv
 3.
     ```
     pip install requirements.txt
     ```
+
 4.
     ```
     python manage.py migrate
     ```
+   
 5. 
     ```
     python manage.py loaddata catalog_dump
     ```
+    
 6. 
     ```
     python manage.py runserver
     ```
 
-Для развертки проекта (через Docker):
+Для развертки проекта (через Docker):<br>
 1.
     ```
     git clone <this repo>
     ```
+    <br>
 2.
     ```
     Создать .env и .env.db файлы в корне проекта
@@ -60,5 +65,6 @@
     ```
     docker-compose up --build
     ```
+    <br>
 
 Сайт запускается на 8000 порту
