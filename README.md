@@ -55,7 +55,7 @@
     DEBUG=True
     ```
     .env.db
-    ```angular2html
+    ```
     POSTGRES_USER=user
     POSTGRES_PASSWORD=user
     POSTGRES_DB=user_db
