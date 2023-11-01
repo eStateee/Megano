@@ -1,0 +1,54 @@
+version: '3.5'
+
+services:
+
+  web:
+    container_name: "web"
+    build: ./Megano
+    volumes:
+      - static_volume:/usr/src/app/static/
+      - media_volume:/usr/src/app/media/
+    expose:
+      - 8000
+    env_file:
+      - ./.env
+    networks:
+      - custom
+    depends_on:
+      - db
+  db:
+    container_name: "db"
+    image: postgres:13-alpine
+    volumes:
+      - ./db_dev/:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.dev.db
+    ports:
+      - '5432:5432'
+    networks:
+      - custom
+
+
+  nginx:
+    container_name: "nginx"
+    build: ./nginx
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+    volumes:
+      - static_volume:/usr/src/app/static/
+      - media_volume:/usr/src/app/media/
+    networks:
+      - custom
+
+volumes:
+  static_volume:
+  media_volume:
+  db_dev:
+    name: db_dev
+
+
+networks:
+  custom:
+    driver: bridge
